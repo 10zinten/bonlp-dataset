@@ -7,7 +7,6 @@ import json
 from docx import Document
 from tqdm import tqdm
 
-doc = Document()
 
 def format_para(para, pos):
     left_para = para[:pos]
@@ -17,7 +16,8 @@ def format_para(para, pos):
 def dump_into_doc(fn):
     with io.open(fn, 'r', encoding='utf-8-sig') as f:
         objects = sorted(json.load(f), key=lambda o: o['type'])
-
+    
+    doc = Document()
     for o in tqdm(objects):
         para = o['ex']
         type = o['type']
@@ -29,6 +29,7 @@ def dump_into_doc(fn):
         values = [para, type, key]
         keys = ['Example', 'Type', 'Key']
 
+        
         table = doc.add_table(rows=3, cols=2)
         for i, row in enumerate(table.rows):
             row.cells[0].width = 10
