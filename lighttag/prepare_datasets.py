@@ -138,13 +138,13 @@ def get_sentence_indices(tokens):
     sentence_idx = extract_chunks(is_endpart_n_punct, tokens, 0, previous_end)
 
     # 2. find clause boundaries followed by punctuation
-    sentence_idx = piped_sentencify(sentence_idx, tokens, is_clause_boundary_n_punct)
+    #sentence_idx = piped_sentencify(sentence_idx, tokens, is_clause_boundary_n_punct)
 
     # 3. find verbs followed by punctuation
     sentence_idx = piped_sentencify(sentence_idx, tokens, is_verb_n_punct)
 
     # 4. find verbs followed by clause boundaries
-    sentence_idx = piped_sentencify(sentence_idx, tokens, is_verb_n_clause_boundary, threshold=30)  # max size to check
+    #sentence_idx = piped_sentencify(sentence_idx, tokens, is_verb_n_clause_boundary, threshold=30)  # max size to check
 
     # joining the sentences without verbs to either the one preceding them or following them
     sentence_idx = join_no_verb_sentences(sentence_idx, tokens)
@@ -165,7 +165,7 @@ def sentencify(tokens):
 
 def paragraphify(tokens):
     threshold = 70
-    paragraph_max = 100
+    paragraph_max = 150
     sent_indices = get_sentence_indices(tokens)
 
     # join small sentences to form paragraphs
@@ -228,7 +228,8 @@ if __name__ == '__main__':
                           format_sentences_for_lighttag,
                           pybo_profile='GMD')
 
-    tokens = pipeline.pipe_file('lighttag/totag/mdzangs_blun.txt', 'lighttag/toupload')
-    # in_str = 'འདི་ལ་ཡང་གཟུང་བའི་ཆ་ཡོད་ན་ཤེས་པ་ཡོད་ལ་མེད་ན་མེད་དེ། དེ་ལྟ་བས་ན་ལྷན་ཅིག་འབྱུང་བ་དེ་གཉིས་ཀྱང་རྒྱུ་དང་རྒྱུ་དང་ལྡན་པ་ཉིད་དུ་འགྲུབ་པོ། །གཏན་ཚིགས་པ་དག་ཅེས་བྱ་བ་ནི་གང་དག་གཏན་ཚིགས་ཀྱི་ཐ་སྙད་འདོགས་པ་དེ་དག་ནི་གཏན་ཚིགས་པ་དག་སྟེ། རྟོག་གེ་བ་ཞེས་བྱ་བའི་ཐ་ཚིག་གོ། །དེ་དང་ལྡན་པ་ཉིད་ཅེས་བྱ་བ་ནི་ཡོད་པ་དང་མེད་པ་དང་ལྡན་པ་ཉིད་དོ། །རྒྱུ་དང་རྒྱུ་དང་ལྡན་པ་ཞེས་བྱ་བ་ནི་རྒྱུ་དང་འབྲས་བུ་དག་ཅེས་བྱ་བའི་དོན་ཏོ། །'
-    # print(pipeline.pipe_str(in_str))
+    #tokens = pipeline.pipe_file('lighttag/totag/mdzangs_blun.txt', 'lighttag/toupload')
+    #in_str = 'འདི་ལ་ཡང་གཟུང་བའི་ཆ་ཡོད་ན་ཤེས་པ་ཡོད་ལ་མེད་ན་མེད་དེ། དེ་ལྟ་བས་ན་ལྷན་ཅིག་འབྱུང་བ་དེ་གཉིས་ཀྱང་རྒྱུ་དང་རྒྱུ་དང་ལྡན་པ་ཉིད་དུ་འགྲུབ་པོ། །གཏན་ཚིགས་པ་དག་ཅེས་བྱ་བ་ནི་གང་དག་གཏན་ཚིགས་ཀྱི་ཐ་སྙད་འདོགས་པ་དེ་དག་ནི་གཏན་ཚིགས་པ་དག་སྟེ། རྟོག་གེ་བ་ཞེས་བྱ་བའི་ཐ་ཚིག་གོ། །དེ་དང་ལྡན་པ་ཉིད་ཅེས་བྱ་བ་ནི་ཡོད་པ་དང་མེད་པ་དང་ལྡན་པ་ཉིད་དོ། །རྒྱུ་དང་རྒྱུ་དང་ལྡན་པ་ཞེས་བྱ་བ་ནི་རྒྱུ་དང་འབྲས་བུ་དག་ཅེས་བྱ་བའི་དོན་ཏོ། །'
+    in_str = 'ལག་པ་གཡས་པ་བརྐྱང་ནས་འདི་སྐད་ཅེས་ཁོ་བོ་ཡུན་རིང་པོ་ནས་མངོན་པར་འདོད་པ་བུའི་ངོ་མཐོང་བ་དང་། ཁོ་བོ་དང་མཐུན་པར་སྐྱེ་ཞིང་མི་མཐུན་པར་མི་སྐྱེ་བ་དང་། ཁོ་བོའི་བྱ་བ་དག་བྱེད་པ་དང་། གསོས་པས་ཕྱིར་གསོ་བ་དང་། བགོ་སྐལ་ལ་སྤྱོད་པ་དང་། ཁོ་བོའི་རིགས་རྒྱུད་རིང་དུ་གནས་པར་སྒྲུབ་པ་དང་། བདག་ཅག་ཤི་ཞིང་དུས་ལ་བབ་པ་དག་ལ་ཉུང་ངུའམ། མང་པོ་ཡང་རུང་བའི་སྦྱིན་པ་དག་བྱིན་ཞིང་བསོད་ནམས་དག་བྱས་ནས་འདི་དེ་གཉིས་གང་དུ་སྐྱེས་ཤིང་འགྲོ་བའི་རྗེས་སུ་འགྲོ་བར་གྱུར་ཅིག་ཅེས་མིང་གིས་ཡོན་སྔོ་བ་བྱེད་པར་གྱུར་ཅིག་ཅེས་ཆེད་དུ་བརྗོད་པ་ཆེད་དུ་རྗོད་པར་བྱེད་དོ། །དེ་ལ་སེམས་ཅན་ཞུགས་པར་རིག་ནས*་འདི་ལྟ་སྟེ།'
+    print(pipeline.pipe_str(in_str))
     print('ok')
