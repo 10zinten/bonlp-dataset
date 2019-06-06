@@ -5,7 +5,7 @@ import json
 
 out_dir = '../data/toupload'
 out_fns = sorted(glob.glob(os.path.join(out_dir, "*")))
-keys_path = '../data/keys/test_keys.yml'
+keys_path = '../_keys.yml'
 
 def test_key_in_para():
     with open(keys_path) as f:

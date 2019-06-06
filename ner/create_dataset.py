@@ -29,7 +29,7 @@ def unique_objects(objects, key):
 
 def filter_and_format_para(paras):
     output = []
-    keys_path = Path('data/keys/test_keys.yml').resolve()
+    keys_path = Path('keys.yml').resolve()
     keys_dict = parse_keys(keys_path)
     for i, para in enumerate(paras):
         para_str = ''.join([token.content for token in para[1]])
